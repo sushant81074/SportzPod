@@ -1,5 +1,7 @@
 const express = require("express");
 const app = express();
+const session = require("express-session");
+const cookieParser = require("cookie-parser");
 const homeRouter = require("./routes/home");
 const userRouter = require("./routes/auth/userRoute");
 const env = require("dotenv");
@@ -10,6 +12,9 @@ const dbUrls = process.env.dbUrl || "mongodb://127.0.0.1:27017/SocialMediaApp";
 
 const mongoose = require("mongoose");
 mongoose.connect(dbUrls, {});
+
+app.use(session());
+app.use(cookieParser());
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
